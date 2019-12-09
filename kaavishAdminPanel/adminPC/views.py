@@ -29,10 +29,13 @@ def retryLogin(request):
     return render(request, 'retryLogin.html', {'form': form})
 
 def home(request):
-    return render(request, 'home.html')
+    if request.user.is_authenticated:
+        return render(request, 'home.html')
+    else:
+        return HttpResponseRedirect('/retryLogin/')
 
 def userLogout(request):
     logout(request)
-    return HttpResponseRedirect('/home/')
+    return HttpResponseRedirect('/login/')
 
 
